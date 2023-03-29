@@ -1,4 +1,8 @@
 -c requirements.txt
+pylint
+flake8
+pycodestyle
+autopep8
 pytest
 pytest-cov
 pytest-mock
