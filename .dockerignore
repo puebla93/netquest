@@ -1,0 +1,7 @@
+.git/*
+*.pyc
+*.pytest_cache/*
+*__pychache__/*
+*tests/*
+.idea/*
+.vscode/*
