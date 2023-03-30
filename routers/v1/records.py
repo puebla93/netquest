@@ -1,4 +1,4 @@
-"""Module to add all records endpionts
+"""Module to add all records handlers
 """
 
 
