@@ -1,7 +1,6 @@
 """Module to add all records handlers
 """
 
-
 from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
 

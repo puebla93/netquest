@@ -8,7 +8,7 @@ RUN set -ex \
     && pip install --no-cache-dir pip-tools \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /api
+WORKDIR /app
 COPY requirements.in requirements-dev.in requirements.txt requirements-dev.txt ./
 RUN pip-sync requirements.txt requirements-dev.txt
-COPY . .
+COPY ./app .
