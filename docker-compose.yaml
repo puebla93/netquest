@@ -10,9 +10,13 @@ services:
       - .env
     ports:
       - "8000:8000"
+    depends_on:
+      - database
   
   database:
     image: postgres:latest
+    volumes:
+      - ./db:/var/lib/postgresql/data
     env_file:
       - .env
     ports:
