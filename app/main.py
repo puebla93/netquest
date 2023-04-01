@@ -13,6 +13,7 @@ from routers import api_router
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
+
 # Middlewares are executed in LIFO order,
 # RequestData needs to be initialized before everything else.
 app.add_middleware(DatabaseSessionMiddleware)
@@ -23,6 +24,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(api_router)
 

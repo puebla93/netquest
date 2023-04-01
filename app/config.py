@@ -1,4 +1,4 @@
-"""
+"""Module to define all app settings.
 """
 
 import logging
