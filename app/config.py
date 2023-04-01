@@ -2,7 +2,7 @@
 """
 
 import logging
-from typing import Optional, Union, List, Dict, Any
+from typing import Any
 
 from functools import lru_cache
 
@@ -12,20 +12,20 @@ from pydantic import BaseSettings, AnyHttpUrl, PostgresDsn, validator
 class Settings(BaseSettings):
     PROJECT_NAME: str
     ENV_NAME: str
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
+    BACKEND_CORS_ORIGINS: list[AnyHttpUrl] = []
 
     POSTGRES_SERVER: str
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
-    DATABASE_URI: Optional[PostgresDsn] = None
+    DATABASE_URI: PostgresDsn | None = None
 
     class Config:
         case_sensitive = True
         env_file = ".env"
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
-    def assemble_cors_origins(cls, value: Union[str, list[str]]) -> Union[list[str], str]:
+    def assemble_cors_origins(cls, value: str | list[str]) -> list[str] | str:
         if isinstance(value, str) and not value.startswith("["):
             return [i.strip() for i in value.split(",")]
         if isinstance(value, (list, str)):
@@ -33,7 +33,7 @@ class Settings(BaseSettings):
         raise ValueError(value)
 
     @validator("DATABASE_URI", pre=True)
-    def assemble_db_connection(cls, value: Optional[str], values: Dict[str, Any]) -> Any:
+    def assemble_db_connection(cls, value: str | None, values: dict[str, Any]) -> Any:
         if isinstance(value, str):
             return value
         return PostgresDsn.build(
