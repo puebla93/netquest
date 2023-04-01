@@ -10,8 +10,7 @@ from database import SessionLocal
 
 
 class DatabaseSessionMiddleware(BaseHTTPMiddleware):
-    """Database session middleware
-    """
+    """Database session middleware"""
 
     async def dispatch(
         self, request: Request, call_next: RequestResponseEndpoint
