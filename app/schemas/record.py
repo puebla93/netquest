@@ -20,6 +20,10 @@ class RecordCreate(RecordBase):
     pass
 
 
+class RecordUpdate(BaseModel):
+    pass
+
+
 class Record(RecordBase):
     class Config:
         orm_mode = True
