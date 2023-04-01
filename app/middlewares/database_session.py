@@ -1,6 +1,8 @@
 """Module that defines the database session middleware class
 """
 
+import logging
+
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
@@ -16,6 +18,7 @@ class DatabaseSessionMiddleware(BaseHTTPMiddleware):
     ) -> Response:
         response = Response("Internal server error", status_code=500)
         try:
+            logging.debug("Adding database connection SessionLocal to request state")
             request.state.db = SessionLocal()
             response = await call_next(request)
         finally:
