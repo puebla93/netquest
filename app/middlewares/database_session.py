@@ -1,4 +1,4 @@
-"""
+"""Module that defines the database session middleware class
 """
 
 from fastapi import Request, Response
@@ -8,6 +8,9 @@ from database import SessionLocal
 
 
 class DatabaseSessionMiddleware(BaseHTTPMiddleware):
+    """Database session middleware
+    """
+
     async def dispatch(
         self, request: Request, call_next: RequestResponseEndpoint
     ) -> Response:
