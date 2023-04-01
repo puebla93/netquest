@@ -1,8 +1,6 @@
 -c requirements.txt
-pylint
-flake8
-pycodestyle
-autopep8
+black
+pre-commit
 pytest
 pytest-cov
 pytest-mock
