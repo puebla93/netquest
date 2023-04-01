@@ -113,7 +113,7 @@ def update_record(
             status_code=status.HTTP_404_NOT_FOUND, detail="Record not found"
         )
 
-    for field, value in record.dict():
+    for field, value in record.dict().items():
         setattr(db_record, field, value)
 
     # Commit the changes to the database session
@@ -128,7 +128,7 @@ def update_record(
     "/{record_id}/", response_model=schemas.Record, status_code=status.HTTP_200_OK
 )
 def partial_update_record(
-    record: schemas.RecordUpdate,
+    record: schemas.RecordPartialUpdate,
     db_record: models.Record = Depends(get_record),
     db: Session = Depends(get_db),
 ) -> schemas.Record:

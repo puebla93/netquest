@@ -20,8 +20,13 @@ class RecordCreate(RecordBase):
     pass
 
 
-class RecordUpdate(BaseModel):
+class RecordUpdate(RecordBase):
     pass
+
+
+class RecordPartialUpdate(RecordBase):
+    title: str | None
+    img: str | None
 
 
 class Record(RecordBase):

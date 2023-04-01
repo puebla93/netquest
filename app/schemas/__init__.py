@@ -1,5 +1,5 @@
 from .user import User, UserCreate
-from .record import Record, RecordCreate, RecordUpdate
+from .record import Record, RecordCreate, RecordUpdate, RecordPartialUpdate
 
 __all__ = [
     "User",
@@ -7,4 +7,5 @@ __all__ = [
     "Record",
     "RecordCreate",
     "RecordUpdate",
+    "RecordPartialUpdate",
 ]
