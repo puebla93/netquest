@@ -4,6 +4,8 @@
 import pytest
 from pytest_postgresql.factories import postgresql
 
+from passlib.context import CryptContext
+
 from fastapi.testclient import TestClient
 
 from sqlalchemy import create_engine
@@ -43,7 +45,9 @@ def client() -> TestClient:
 
 @pytest.fixture
 def user(db_session: scoped_session) -> User:
-    user = User(id=1, email="test@example.com", hashed_password="password")
+    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+    hashed_password = pwd_context.hash("123456")
+    user = User(id=1, email="test@example.com", hashed_password=hashed_password)
 
     db_session.add(user)
     db_session.commit()

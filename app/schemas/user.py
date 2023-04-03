@@ -20,5 +20,5 @@ class User(UserBase):
 
 
 class Token(BaseModel):
-    access_token: str
+    jwt: str
     token_type: str

@@ -50,7 +50,7 @@ def signin(
     return db_user
 
 
-@auth_router.post("/login/", response_model=schemas.Token)
+@auth_router.post("/login/", response_model=schemas.Token, status_code=status.HTTP_200_OK)
 def login(
     user: schemas.UserAuth,
     db_user: Annotated[models.User, Depends(get_user)],
@@ -75,4 +75,4 @@ def login(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    return {"access_token": db_user.jwt, "token_type": "bearer"}
+    return {"jwt": db_user.jwt, "token_type": "bearer"}
