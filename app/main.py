@@ -5,7 +5,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from middlewares import DatabaseSessionMiddleware
+from middlewares import AuthMiddleware, DatabaseSessionMiddleware
 
 from config import settings
 from routers import api_router
@@ -16,6 +16,7 @@ app = FastAPI(title=settings.PROJECT_NAME)
 
 # Middlewares are executed in LIFO order,
 # RequestData needs to be initialized before everything else.
+app.add_middleware(AuthMiddleware)
 app.add_middleware(DatabaseSessionMiddleware)
 app.add_middleware(
     CORSMiddleware,
