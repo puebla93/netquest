@@ -2,6 +2,7 @@
 """
 
 import logging
+from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, status, Depends
 
@@ -19,14 +20,14 @@ records_router = APIRouter(prefix="/records")
     "/", response_model=list[schemas.Record], status_code=status.HTTP_200_OK
 )
 def get_all_records(
-    skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
+    db: Annotated[Session, Depends(get_db)], skip: int = 0, limit: int = 100,
 ) -> list[schemas.Record]:
     """Gets all records from db.
 
     Args:
+        db (Session): The db session.
         skip (int, optional): The offset where we want to start searching in the db. Defaults to 0.
         limit (int, optional): The number of records we want to retrieve from the db. Defaults to 100.
-        db (Session, optional): The db session.
     Returns:
         list[schemas.Record]: A list with all records that we get from db.
     """
@@ -41,13 +42,13 @@ def get_all_records(
     "/", response_model=schemas.Record, status_code=status.HTTP_201_CREATED
 )
 def create_record(
-    record: schemas.RecordCreate, db: Session = Depends(get_db)
+    record: schemas.RecordCreate, db: Annotated[Session, Depends(get_db)]
 ) -> schemas.Record:
     """Creates a record in db.
 
     Args:
         record (schemas.RecordCreate): The data needed to create a record.
-        db (Session, optional): The db session.
+        db (Session): The db session.
     Returns:
         schemas.Record: The new record entry in db.
     """
@@ -65,11 +66,11 @@ def create_record(
 @records_router.get(
     "/{record_id}/", response_model=schemas.Record, status_code=status.HTTP_200_OK
 )
-def retrieve_record(db_record: models.Record = Depends(get_record)) -> schemas.Record:
+def retrieve_record(db_record: Annotated[models.Record, Depends(get_record)]) -> schemas.Record:
     """Get a record entry from db.
 
     Args:
-        db_record (models.Record, optional): The db record if exists otherwise None.
+        db_record (models.Record): The db record if exists otherwise None.
 
     Raises:
         HTTPException: Record not found.
@@ -91,15 +92,15 @@ def retrieve_record(db_record: models.Record = Depends(get_record)) -> schemas.R
 )
 def update_record(
     record: schemas.RecordUpdate,
-    db_record: models.Record = Depends(get_record),
-    db: Session = Depends(get_db),
+    db_record: Annotated[models.Record, Depends(get_record)],
+    db: Annotated[Session, Depends(get_db)],
 ) -> schemas.Record:
     """Update a record entry in db.
 
     Args:
         record (schemas.RecordUpdate): The data to update the record.
-        db_record (models.Record, optional): The db record if exists otherwise None.
-        db (Session, optional): The db session.
+        db_record (models.Record): The db record if exists otherwise None.
+        db (Session): The db session.
 
     Raises:
         HTTPException: Record not found.
@@ -129,15 +130,15 @@ def update_record(
 )
 def partial_update_record(
     record: schemas.RecordPartialUpdate,
-    db_record: models.Record = Depends(get_record),
-    db: Session = Depends(get_db),
+    db_record: Annotated[models.Record, Depends(get_record)],
+    db: Annotated[Session, Depends(get_db)],
 ) -> schemas.Record:
     """Partially update a record entry in db.
 
     Args:
         record (schemas.RecordUpdate): The data to update the record.
-        db_record (models.Record, optional): The db record if exists otherwise None.
-        db (Session, optional): The db session.
+        db_record (models.Record): The db record if exists otherwise None.
+        db (Session): The db session.
 
     Raises:
         HTTPException: Record not found.
@@ -165,13 +166,13 @@ def partial_update_record(
 
 @records_router.delete("/{record_id}/", status_code=status.HTTP_204_NO_CONTENT)
 def delete_record(
-    db_record: models.Record = Depends(get_record), db: Session = Depends(get_db)
+    db_record: Annotated[models.Record, Depends(get_record)], db: Annotated[Session, Depends(get_db)]
 ) -> None:
     """Delete a record from db.
 
     Args:
-        db_record (models.Record, optional): The db record if exists otherwise None.
-        db (Session, optional): The db session.
+        db_record (models.Record): The db record if exists otherwise None.
+        db (Session): The db session.
 
     Raises:
         HTTPException: Record not found.

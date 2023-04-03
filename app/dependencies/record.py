@@ -2,6 +2,8 @@
 """
 
 import logging
+from typing import Annotated
+
 from fastapi import Depends
 
 from sqlalchemy.orm import Session
@@ -11,7 +13,7 @@ from models import Record
 from .database import get_db
 
 
-def get_record(record_id: int, db: Session = Depends(get_db)) -> Record | None:
+def get_record(record_id: int, db: Annotated[Session, Depends(get_db)]) -> Record | None:
     """Get record from database
 
     Args:
