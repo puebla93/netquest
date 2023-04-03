@@ -12,10 +12,9 @@ class RecordBase(BaseModel):
 
     @validator("img")
     def validate_img(cls, value):
-        if value:
-            parsed = urlparse(value)
-            if not all([parsed.scheme, parsed.netloc]):
-                raise ValueError("Invalid img value")
+        parsed = urlparse(value)
+        if not all([parsed.scheme, parsed.netloc]):
+            raise ValueError("Invalid img value")
         return value
 
 
@@ -33,5 +32,7 @@ class RecordPartialUpdate(RecordBase):
 
 
 class Record(RecordBase):
+    id: int
+
     class Config:
         orm_mode = True
