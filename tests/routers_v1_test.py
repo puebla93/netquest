@@ -63,10 +63,7 @@ class TestRecordRouter:
         )
         mock_session_local.return_value = db_session
 
-        data = {
-            "title": "Fake Title",
-            "img": "invalid url"
-        }
+        data = {"title": "Fake Title", "img": "invalid url"}
         post_data = json.dumps(data)
         headers = {"Authorization": f"Bearer {user.jwt}"}
         response = client.post("/api/v1/records/", data=post_data, headers=headers)
@@ -85,10 +82,7 @@ class TestRecordRouter:
         )
         mock_session_local.return_value = db_session
 
-        data = {
-            "title": "Fake Title",
-            "img": "http://fake.img.com"
-        }
+        data = {"title": "Fake Title", "img": "http://fake.img.com"}
         post_data = json.dumps(data)
         headers = {"Authorization": f"Bearer {user.jwt}"}
         response = client.post("/api/v1/records/", data=post_data, headers=headers)
@@ -100,7 +94,12 @@ class TestRecordRouter:
         assert content["title"] == "Fake Title"
         assert content["img"] == "http://fake.img.com"
 
-        record = db_session.query(Record).filter(Record.title == "Fake Title").filter(Record.img == "http://fake.img.com").first()
+        record = (
+            db_session.query(Record)
+            .filter(Record.title == "Fake Title")
+            .filter(Record.img == "http://fake.img.com")
+            .first()
+        )
 
         assert record is not None
 
@@ -140,13 +139,12 @@ class TestRecordRouter:
         )
         mock_session_local.return_value = db_session
 
-        data = {
-            "title": "Fake Title",
-            "img": "invalid url"
-        }
+        data = {"title": "Fake Title", "img": "invalid url"}
         post_data = json.dumps(data)
         headers = {"Authorization": f"Bearer {user.jwt}"}
-        response = client.put(f"/api/v1/records/{record.id}", data=post_data, headers=headers)
+        response = client.put(
+            f"/api/v1/records/{record.id}", data=post_data, headers=headers
+        )
 
         assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
 
@@ -163,13 +161,12 @@ class TestRecordRouter:
         )
         mock_session_local.return_value = db_session
 
-        data = {
-            "title": "Fake Title",
-            "img": "http://fake.img.com"
-        }
+        data = {"title": "Fake Title", "img": "http://fake.img.com"}
         post_data = json.dumps(data)
         headers = {"Authorization": f"Bearer {user.jwt}"}
-        response = client.put(f"/api/v1/records/{record.id}", data=post_data, headers=headers)
+        response = client.put(
+            f"/api/v1/records/{record.id}", data=post_data, headers=headers
+        )
 
         assert response.status_code == status.HTTP_200_OK
 
@@ -191,13 +188,12 @@ class TestRecordRouter:
         )
         mock_session_local.return_value = db_session
 
-        data = {
-            "title": "Fake Title",
-            "img": "http://fake.img.com"
-        }
+        data = {"title": "Fake Title", "img": "http://fake.img.com"}
         post_data = json.dumps(data)
         headers = {"Authorization": f"Bearer {user.jwt}"}
-        response = client.patch(f"/api/v1/records/{record.id}", data=post_data, headers=headers)
+        response = client.patch(
+            f"/api/v1/records/{record.id}", data=post_data, headers=headers
+        )
 
         assert response.status_code == status.HTTP_200_OK
 
@@ -236,7 +232,6 @@ class TestAuthRouter:
         db_session: scoped_session,
         mocker: MockerFixture,
     ):
-        
         mock_session_local = mocker.patch(
             "app.middlewares.database_session.SessionLocal"
         )
@@ -266,7 +261,6 @@ class TestAuthRouter:
         db_session: scoped_session,
         mocker: MockerFixture,
     ):
-        
         mock_session_local = mocker.patch(
             "app.middlewares.database_session.SessionLocal"
         )
@@ -287,7 +281,6 @@ class TestAuthRouter:
         db_session: scoped_session,
         mocker: MockerFixture,
     ):
-        
         mock_session_local = mocker.patch(
             "app.middlewares.database_session.SessionLocal"
         )
@@ -313,7 +306,6 @@ class TestAuthRouter:
         db_session: scoped_session,
         mocker: MockerFixture,
     ):
-        
         mock_session_local = mocker.patch(
             "app.middlewares.database_session.SessionLocal"
         )

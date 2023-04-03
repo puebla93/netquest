@@ -50,7 +50,9 @@ def signin(
     return db_user
 
 
-@auth_router.post("/login/", response_model=schemas.Token, status_code=status.HTTP_200_OK)
+@auth_router.post(
+    "/login/", response_model=schemas.Token, status_code=status.HTTP_200_OK
+)
 def login(
     user: schemas.UserAuth,
     db_user: Annotated[models.User, Depends(get_user)],
