@@ -18,7 +18,7 @@ class User(Base):
     hashed_password = Column(String)
 
     @property
-    def jwt(self):
+    def jwt(self) -> str:
         to_encode = {
             "user_id": self.id,
             "exp": datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),

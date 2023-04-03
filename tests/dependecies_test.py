@@ -1,8 +1,7 @@
-"""Module to all tests to dependecies module.
+"""Module to add all tests for dependecies.
 """
 
 import pytest
-from pytest_mock import MockerFixture
 
 from fastapi import Request, HTTPException
 
