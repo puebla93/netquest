@@ -12,6 +12,8 @@ Records REST service
    
 4. `pip-sync requirements.txt requirements-dev.txt`.
 
+5. Run `pre-commit install`. This will our pre-commit hooks
+
 ## Dependency management
 
 We use pip-tools for dependency management. [Docs](https://morioh.com/p/fb3fafb53095)
