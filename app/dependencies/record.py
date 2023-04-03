@@ -18,7 +18,7 @@ def get_record(record_id: int, db: Annotated[Session, Depends(get_db)]) -> Recor
 
     Args:
         record_id (int): The record's id
-        db (Session, optional): The databse session.
+        db (Session): The databse session.
 
     Returns:
         Record | None: The record if exists otherwise None.
