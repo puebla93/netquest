@@ -6,8 +6,8 @@ from jose import jwt
 
 from sqlalchemy import Column, Integer, String
 
-from database import Base
-from config import settings
+from app.database import Base
+from app.config import settings
 
 
 class User(Base):

@@ -5,10 +5,11 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from middlewares import AuthMiddleware, DatabaseSessionMiddleware
+from app.middlewares import AuthMiddleware, DatabaseSessionMiddleware
 
-from config import settings
-from routers import api_router
+from app.config import settings
+from app.routers import api_router
+from app.database import Base, engine
 
 
 app = FastAPI(title=settings.PROJECT_NAME)

@@ -8,9 +8,9 @@ from fastapi import APIRouter, HTTPException, status, Depends
 
 from sqlalchemy.orm import Session
 
-import models
-import schemas
-from dependencies import get_db, get_record, user_is_authenticated
+from app import models
+from app import schemas
+from app.dependencies import get_db, get_record, user_is_authenticated
 
 
 records_router = APIRouter(prefix="/records", dependencies=[Depends(user_is_authenticated)])

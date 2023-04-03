@@ -6,7 +6,7 @@ import logging
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
-from database import SessionLocal
+from app.database import SessionLocal
 
 
 class DatabaseSessionMiddleware(BaseHTTPMiddleware):

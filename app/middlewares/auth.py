@@ -8,9 +8,9 @@ from jose import jwt, JWTError
 from fastapi import Request, Response, HTTPException, status
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
-import models
+from app import models
 
-from config import settings
+from app.config import settings
 
 
 class AuthMiddleware(BaseHTTPMiddleware):

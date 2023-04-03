@@ -8,8 +8,8 @@ from fastapi import Depends
 
 from sqlalchemy.orm import Session
 
-import models
-import schemas
+from app import models
+from app import schemas
 
 from .database import get_db
 

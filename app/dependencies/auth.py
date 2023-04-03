@@ -5,7 +5,7 @@ from typing import Annotated
 
 from fastapi import Request, HTTPException, status, Depends
 
-import models
+from app import models
 
 
 def get_current_user(request: Request) -> models.User | None:
