@@ -1,9 +1,13 @@
-from .user import User, UserCreate
+"""Module to add all schemas
+"""
+
+from .user import User, UserAuth, Token
 from .record import Record, RecordCreate, RecordUpdate, RecordPartialUpdate
 
 __all__ = [
     "User",
-    "UserCreate",
+    "UserAuth",
+    "Token",
     "Record",
     "RecordCreate",
     "RecordUpdate",
