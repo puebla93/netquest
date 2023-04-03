@@ -1,4 +1,4 @@
-"""Module to all tests to dependecies.
+"""Module to all tests to dependecies module.
 """
 
 import pytest
@@ -6,7 +6,7 @@ from pytest_mock import MockerFixture
 
 from fastapi import Request, HTTPException
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import scoped_session
 
 from . import user, db_session, record
 
@@ -36,7 +36,7 @@ class TestAuthDependencies:
 
 
 class TestDatabaseDependencies:
-    def test_get_db(self, db_session: Session):
+    def test_get_db(self, db_session: scoped_session):
         request = Request(scope={"type": "http"})
 
         request.state.db = db_session
@@ -45,11 +45,11 @@ class TestDatabaseDependencies:
 
 
 class TestRecordDependencies:
-    def test_get_record(self, record: Record, db_session: Session):
+    def test_get_record(self, record: Record, db_session: scoped_session):
         assert get_record(record_id=record.id, db=db_session) == record
 
 
 class TestUserDependencies:
-    def test_get_record(self, user: User, db_session: Session):
+    def test_get_record(self, user: User, db_session: scoped_session):
         user_auth = UserAuth(email=user.email, password="password")
         assert get_user(user=user_auth, db=db_session) == user

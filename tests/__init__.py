@@ -7,7 +7,7 @@ from pytest_postgresql.factories import postgresql
 from fastapi.testclient import TestClient
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker, Session
+from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.pool import NullPool
 
 from app.main import app
@@ -16,8 +16,9 @@ from app.database import Base
 
 
 @pytest.fixture
-def db_session(postgresql):
-    """Create a clean database instance for testing."""
+def db_session(postgresql) -> scoped_session:
+    """Create a clean database instance for testing.
+    """
 
     connection = f"postgresql+psycopg2://{postgresql.info.user}:@{postgresql.info.host}:{postgresql.info.port}/{postgresql.info.dbname}"
 
@@ -33,15 +34,16 @@ def db_session(postgresql):
 
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def client() -> TestClient:
-    """Create a FastAPI test client."""
+    """Create a FastAPI test client.
+    """
 
     return TestClient(app)
 
 
 @pytest.fixture
-def user(db_session: Session) -> User:
+def user(db_session: scoped_session) -> User:
     user = User(id=1, email="test@example.com", hashed_password="password")
 
     db_session.add(user)
@@ -52,7 +54,7 @@ def user(db_session: Session) -> User:
 
 
 @pytest.fixture
-def record(db_session: Session) -> User:
+def record(db_session: scoped_session) -> User:
     record = Record(id=1, title="test title", img="http://test.record.image.com")
 
     db_session.add(record)
