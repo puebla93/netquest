@@ -4,4 +4,8 @@ pre-commit
 pytest
 pytest-cov
 pytest-mock
+pytest-postgresql
 debugpy
+pydantic[dotenv]
+httpx
+psycopg[binary]
