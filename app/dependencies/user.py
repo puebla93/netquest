@@ -29,6 +29,6 @@ def get_user(
     """
 
     logging.debug("Getting user with email %s from database" % user.email)
-    user = db.query(models.User).filter(models.User == user.email).first()
+    user = db.query(models.User).filter(models.User.email == user.email).first()
 
     return user
