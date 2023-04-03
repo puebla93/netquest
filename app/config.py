@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     POSTGRES_DB: str
     DATABASE_URI: PostgresDsn | None = None
 
+    SECRET_KEY: str
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+
     class Config:
         case_sensitive = True
         env_file = ".env"
