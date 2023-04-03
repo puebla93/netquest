@@ -1,3 +1,6 @@
+"""Module to add record schemas
+"""
+
 from urllib.parse import urlparse
 
 from pydantic import BaseModel, validator
