@@ -1,6 +1,13 @@
-from sqlalchemy import Boolean, Column, Integer, String
+"""Module to add user model
+"""
+
+from datetime import datetime, timedelta
+from jose import jwt
+
+from sqlalchemy import Column, Integer, String
 
 from database import Base
+from config import settings
 
 
 class User(Base):
@@ -9,4 +16,13 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
-    is_active = Column(Boolean, default=True)
+
+    @property
+    def jwt(self):
+        to_encode = {
+            "user_id": self.id,
+            "exp": datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+        }
+        access_token = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+
+        return access_token
