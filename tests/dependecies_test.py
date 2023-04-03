@@ -11,7 +11,13 @@ from . import user, db_session, record
 
 from app.models import User, Record
 from app.schemas import UserAuth
-from app.dependencies import get_current_user, user_is_authenticated, get_db, get_record, get_user
+from app.dependencies import (
+    get_current_user,
+    user_is_authenticated,
+    get_db,
+    get_record,
+    get_user,
+)
 
 
 class TestAuthDependencies:

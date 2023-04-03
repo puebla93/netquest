@@ -1,7 +1,6 @@
 """Module to add all tests for models.
 """
 
-from datetime import datetime, timedelta
 from jose import jwt
 
 from sqlalchemy.orm import scoped_session
@@ -41,7 +40,9 @@ class TestUserModel:
 
     def test_record_jwt_property(self, user: User):
         user_jwt = user.jwt
-        payload = jwt.decode(user_jwt, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        payload = jwt.decode(
+            user_jwt, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
 
         assert user_jwt is not None
         assert isinstance(user_jwt, str)

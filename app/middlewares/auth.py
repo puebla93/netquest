@@ -15,12 +15,9 @@ from app.config import settings
 
 
 class AuthMiddleware(BaseHTTPMiddleware):
-    """Validates the JWT and sets user on the request.
-    """
+    """Validates the JWT and sets user on the request."""
 
-    def handle_token(
-        self, request: Request, token: str
-    ) -> models.User:
+    def handle_token(self, request: Request, token: str) -> models.User:
         credentials_exception = HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
@@ -28,7 +25,9 @@ class AuthMiddleware(BaseHTTPMiddleware):
         )
 
         try:
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+            payload = jwt.decode(
+                token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+            )
             user_id: str = payload.get("user_id")
         except JWTError:
             logging.exception("INVALID_JWT_TOKEN: Could not verify token")
@@ -69,7 +68,9 @@ class AuthMiddleware(BaseHTTPMiddleware):
             try:
                 user = self.handle_token(request=request, token=token)
             except HTTPException as exc:
-                return PlainTextResponse(status_code=exc.status_code, content=exc.detail)
+                return PlainTextResponse(
+                    status_code=exc.status_code, content=exc.detail
+                )
 
         request.state.user = user
 

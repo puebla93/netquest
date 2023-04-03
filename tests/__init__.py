@@ -17,13 +17,14 @@ from app.database import Base
 
 @pytest.fixture
 def db_session(postgresql) -> scoped_session:
-    """Create a clean database instance for testing.
-    """
+    """Create a clean database instance for testing."""
 
     connection = f"postgresql+psycopg2://{postgresql.info.user}:@{postgresql.info.host}:{postgresql.info.port}/{postgresql.info.dbname}"
 
     engine = create_engine(connection, echo=False, poolclass=NullPool)
-    session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
+    session = scoped_session(
+        sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    )
 
     Base.metadata.create_all(bind=engine)
 
@@ -33,11 +34,9 @@ def db_session(postgresql) -> scoped_session:
         session.close()
 
 
-
 @pytest.fixture
 def client() -> TestClient:
-    """Create a FastAPI test client.
-    """
+    """Create a FastAPI test client."""
 
     return TestClient(app)
 

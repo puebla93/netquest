@@ -21,8 +21,11 @@ class User(Base):
     def jwt(self) -> str:
         to_encode = {
             "user_id": self.id,
-            "exp": datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+            "exp": datetime.utcnow()
+            + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
         }
-        access_token = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+        access_token = jwt.encode(
+            to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM
+        )
 
         return access_token

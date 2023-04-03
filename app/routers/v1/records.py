@@ -13,14 +13,18 @@ from app import schemas
 from app.dependencies import get_db, get_record, user_is_authenticated
 
 
-records_router = APIRouter(prefix="/records", dependencies=[Depends(user_is_authenticated)])
+records_router = APIRouter(
+    prefix="/records", dependencies=[Depends(user_is_authenticated)]
+)
 
 
 @records_router.get(
     "/", response_model=list[schemas.Record], status_code=status.HTTP_200_OK
 )
 def get_all_records(
-    db: Annotated[Session, Depends(get_db)], skip: int = 0, limit: int = 100,
+    db: Annotated[Session, Depends(get_db)],
+    skip: int = 0,
+    limit: int = 100,
 ) -> list[schemas.Record]:
     """Gets all records from db.
 
@@ -66,7 +70,9 @@ def create_record(
 @records_router.get(
     "/{record_id}/", response_model=schemas.Record, status_code=status.HTTP_200_OK
 )
-def retrieve_record(db_record: Annotated[models.Record, Depends(get_record)]) -> schemas.Record:
+def retrieve_record(
+    db_record: Annotated[models.Record, Depends(get_record)]
+) -> schemas.Record:
     """Get a record entry from db.
 
     Args:
@@ -166,7 +172,8 @@ def partial_update_record(
 
 @records_router.delete("/{record_id}/", status_code=status.HTTP_204_NO_CONTENT)
 def delete_record(
-    db_record: Annotated[models.Record, Depends(get_record)], db: Annotated[Session, Depends(get_db)]
+    db_record: Annotated[models.Record, Depends(get_record)],
+    db: Annotated[Session, Depends(get_db)],
 ) -> None:
     """Delete a record from db.
 

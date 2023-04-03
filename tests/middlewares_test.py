@@ -49,7 +49,9 @@ def all_middlewares(app):
 
 
 class TestAuthMiddleware:
-    def test_auth_middleware_unauthenticated_user(self, app: FastAPI, client: TestClient, auth_middleware):
+    def test_auth_middleware_unauthenticated_user(
+        self, app: FastAPI, client: TestClient, auth_middleware
+    ):
         @app.get("/anonymous")
         async def user(request: Request):
             assert request.state.user is None
@@ -74,7 +76,9 @@ class TestAuthMiddleware:
         db_session: scoped_session,
         all_middlewares,
     ):
-        mock_session_local = mocker.patch("app.middlewares.database_session.SessionLocal")
+        mock_session_local = mocker.patch(
+            "app.middlewares.database_session.SessionLocal"
+        )
         mock_session_local.return_value = db_session
 
         @app.get("/me")
@@ -88,7 +92,9 @@ class TestAuthMiddleware:
 
 
 class TestDatabaseSessionMiddleware:
-    def test_data_base_session_middleware(self, app: FastAPI, client: TestClient, database_session_middleware):
+    def test_data_base_session_middleware(
+        self, app: FastAPI, client: TestClient, database_session_middleware
+    ):
         @app.get("/db")
         async def db(request: Request):
             assert isinstance(request.state.db, Session)

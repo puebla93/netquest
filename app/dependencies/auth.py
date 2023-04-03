@@ -40,6 +40,8 @@ def user_is_authenticated(
     """
 
     if user is None:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User is not authenticated")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="User is not authenticated"
+        )
 
     return True

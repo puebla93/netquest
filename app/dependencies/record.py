@@ -13,7 +13,9 @@ from app.models import Record
 from .database import get_db
 
 
-def get_record(record_id: int, db: Annotated[Session, Depends(get_db)]) -> Record | None:
+def get_record(
+    record_id: int, db: Annotated[Session, Depends(get_db)]
+) -> Record | None:
     """Get record from database
 
     Args:

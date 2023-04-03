@@ -15,8 +15,7 @@ from .database import get_db
 
 
 def get_user(
-    user: schemas.UserAuth,
-    db: Annotated[Session, Depends(get_db)]
+    user: schemas.UserAuth, db: Annotated[Session, Depends(get_db)]
 ) -> models.User | None:
     """Get user from database.
 
