@@ -6,6 +6,7 @@ import logging
 from jose import jwt, JWTError
 
 from fastapi import Request, Response, HTTPException, status
+from fastapi.responses import PlainTextResponse
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
 from app import models
@@ -65,7 +66,10 @@ class AuthMiddleware(BaseHTTPMiddleware):
                 )
 
         if token:
-            user = self.handle_token(request=request, token=token)
+            try:
+                user = self.handle_token(request=request, token=token)
+            except HTTPException as exc:
+                return PlainTextResponse(status_code=exc.status_code, content=exc.detail)
 
         request.state.user = user
 
