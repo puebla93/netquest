@@ -1,4 +1,4 @@
-"""Module that defines the database session middleware class
+"""Module that defines the auth middleware class
 """
 
 import logging
