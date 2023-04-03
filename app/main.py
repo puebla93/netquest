@@ -31,5 +31,11 @@ app.add_middleware(
 app.include_router(api_router)
 
 
+@app.on_event("startup")
+def startup_event():
+    # Create all tables defined in the database models
+    Base.metadata.create_all(bind=engine)
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
