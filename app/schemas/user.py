@@ -1,17 +1,24 @@
-from pydantic import BaseModel
+"""Module to add user schemas
+"""
+
+from pydantic import BaseModel, EmailStr
 
 
 class UserBase(BaseModel):
-    email: str
+    email: EmailStr
 
 
-class UserCreate(UserBase):
+class UserAuth(UserBase):
     password: str
 
 
 class User(UserBase):
-    id: int
-    is_active: bool
+    jwt: str
 
     class Config:
         orm_mode = True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
