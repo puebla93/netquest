@@ -10,10 +10,10 @@ from sqlalchemy.orm import Session
 
 import models
 import schemas
-from dependencies import get_db, get_record
+from dependencies import get_db, get_record, user_is_authenticated
 
 
-records_router = APIRouter(prefix="/records")
+records_router = APIRouter(prefix="/records", dependencies=[Depends(user_is_authenticated)])
 
 
 @records_router.get(
