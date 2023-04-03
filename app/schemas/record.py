@@ -32,7 +32,5 @@ class RecordPartialUpdate(RecordBase):
 
 
 class Record(RecordBase):
-    id: int
-
     class Config:
         orm_mode = True
