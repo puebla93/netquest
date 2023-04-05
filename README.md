@@ -1,6 +1,6 @@
 # Netquest
 
-Records REST service
+Records REST service. See [assignment](Backend Engineer - Netquest Assignment.pdf)
 
 ## Preparation
 
