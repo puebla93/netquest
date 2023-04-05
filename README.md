@@ -37,24 +37,3 @@ If you need more control:
 * Run `pytest --cov=.` (this will run all tests and show coverage).
 
 > See [pytest-cov’s documentation](https://pytest-cov.readthedocs.io/en/latest/)
-
-## Debug the app
-
-### VS Code
-
-Add the following to the `configurations` array in `.vscode/launch.json`
-
-```json
-{
-    "name": "Netquest: Records service",
-    "type": "python",
-    "request": "launch",
-    "program": "${workspaceFolder}/manage.py",
-    "args": [
-        "runserver"
-    ],
-    "django": true,
-    "justMyCode": true
-}
-```
-> See [Python debugging in VS Code](https://code.visualstudio.com/docs/python/debugging)
